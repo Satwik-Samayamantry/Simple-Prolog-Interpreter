@@ -12,8 +12,8 @@ let evaluate () =
     let _ = flush stdout
     in
     let filename =
-      (let lexbuf = Lexing.from_channel cin in
-        Parser.filename Lexer.scan lexbuf
+      (let input = Lexing.from_channel cin in
+        Parser.filename Lexer.scan input
     )
     in
     let file_handle = open_in filename in
