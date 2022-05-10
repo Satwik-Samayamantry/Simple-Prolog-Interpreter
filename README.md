@@ -1,16 +1,18 @@
-Instructions to compile and run the code
+# Simple Prolog Interpreter
 
-$ make
-$ .\evaluate
+## Instructions to compile and run the code
 
-We need to give the database file first.
+`$ make`
 
-| ?- ['test.pl'].
+`$ .\evaluate`
 
-The database will be loaded.
+## Steps
+- First we need to give the database file first.
 
-Now we need to give queries.
+`| ?- ['test1.pl'].`
+
+- The database will be loaded. Then we can start with giving the queries.
 
 Ex:
-| ?- f(a).
 
+`| ?- f(a).`
