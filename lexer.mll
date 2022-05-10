@@ -4,7 +4,7 @@ exception Lexer_exception of string
 
 
 let integer = '0'|['1'-'9']['0'-'9']*
-let var = ['A'-'Z'] ['a'-'z' 'A'-'Z' '0'-'9' '_']*
+let var = ['A'-'Z' '_'] ['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let const = ['a'-'z'] ['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let special_char = [' ' '\t' '\n']+
 
@@ -20,13 +20,12 @@ rule scan = parse
   | '['          { Parser.LBRACKET                   }
   | ']'          { Parser.RBRACKET                   }
   | ':'          { Parser.COLON                      }
-  | ':-'         { Parser.RULE_COND                  }
+  | ":-"         { Parser.RULE_COND                  }
   | '-'          { Parser.SUBTRACT                   }
   | "\\="        { Parser.NOT_EQ                     }
   | '+'          { Parser.ADD                        }
   | '*'          { Parser.MULT                       }
   | '='          { Parser.EQ                         }
-  | "->"         { Parser.RTARROW                    }
   | ','          { Parser.COMMA                      }
   | '.'          { Parser.DOT                        }
   | "'"          { Parser.APOSTROPHE                 }
