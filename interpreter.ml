@@ -27,29 +27,27 @@ let rec solveQuery (database:database) (q:query) (env:environment) (vars:var lis
             else false
         )
     |   Query(cl_query::qs) -> match cl_query with
-            _ -> 
-            let rec iter db = 
-                match db with
-                    [] -> false
-                |   (pred::rest) -> match pred with
-                        Fact(Head(cl_database)) -> (
-                            try 
-                                let e = unifyClauses cl_database cl_query env in
-                                match (solveQuery database (Query qs) e vars) with
-                                    true -> true
-                                    | _ -> iter rest
-                            with Not_Unifiable -> iter rest
-                        )
-                    |   Rule(Head(cl_database), Body(body_list)) -> (
-                            try
-                                let e = unifyClauses cl_database cl_query env in
-                                match (solveQuery database (Query(body_list @ qs)) e vars) with
-                                    true -> true
-                                    | _ -> iter rest
-                            with Not_Unifiable -> iter rest
-                        )
+            _ -> iter database
 
-    in iter database
-;;
+and iter db = 
+    match db with
+        [] -> false
+        | (pred::rest) -> match pred with
+            Fact(Head(cl_database)) -> (
+                try 
+                    let e = unifyClauses cl_database cl_query env in
+                    match (solveQuery database (Query qs) e vars) with
+                        true -> true
+                        | _ -> iter rest
+                with Not_Unifiable -> iter rest
+            )
+            | Rule(Head(cl_database), Body(body_list)) -> (
+                try
+                    let e = unifyClauses cl_database cl_query env in
+                    match (solveQuery database (Query(body_list @ qs)) e vars) with
+                        true -> true
+                        | _ -> iter rest
+                with Not_Unifiable -> iter rest
+            )
 
 let resolveQuery (database: database) (query: query) = solveQuery database query [] (varsInQuery query)

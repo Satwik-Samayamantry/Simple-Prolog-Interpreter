@@ -47,7 +47,7 @@ term:
   LPAREN term RPAREN {$2}
   | VARIABLE {Variable($1)}
   | INTEGER {Number($1)}
-  | CONSTANT {Constant($1, [])}
+  | CONSTANT {Constant($1)}
 
 
 filename:

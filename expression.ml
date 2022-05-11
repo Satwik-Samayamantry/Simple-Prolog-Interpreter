@@ -3,7 +3,7 @@ exception NotFound
 
 type const = string
 type var = string
-type argument = Variable of var | Number of int | Constant of const * (argument list)
+type argument = Variable of var | Number of int | Constant of const
 type environment = (var * argument) list
 type clause = Clause of const * (argument list)
 type head = Head of clause
@@ -28,7 +28,7 @@ let rec print_argument (a:argument) =
     match a with
     | Variable(v) -> Printf.printf " %s " v
     | Number(n) -> Printf.printf " %d " n
-    | Constant(s,l) -> Printf.printf " %s " s
+    | Constant(s) -> Printf.printf " %s " s
 ;;
 
 let rec printSolution (env:environment) = 

@@ -1,9 +1,6 @@
-exception NotFound
-
-
 type const = string
 type var = string
-type argument = Variable of var | Number of int | Constant of const * (argument list)
+type argument = Variable of var | Number of int | Constant of const
 type environment = (var * argument) list
 type clause = Clause of const * (argument list)
 type head = Head of clause
